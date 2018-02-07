@@ -303,5 +303,19 @@ Figure 1: A fancy pie chart.
 </description>
     </item>
     
+    <item>
+      <title>SLIDES</title>
+      <link>/myslides/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/myslides/</guid>
+      <description>&lt;p&gt;{{&amp;lt; now &amp;gt;}}&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;0018-01-31 &lt;a href=&#34;/slides/spatial-unimed.html&#34;&gt;&amp;ldquo;Visualização de dados georreferenciados.&amp;rdquo;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
