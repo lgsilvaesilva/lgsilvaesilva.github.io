@@ -1,0 +1,103 @@
+class: center, middle, inverse
+
+# `r icon::fa("chart-line", size = 1)` `r icon::fa("chart-pie", size = 1)` `r icon::fa("chart-area", size = 1)` <br> Data Visualization 
+
+---
+## Mortality rate
+
+```{r, echo=FALSE}
+htmltools::img(src = "img/logo-mg.png", 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:0; padding:10px; width:15%')
+```
+
+- The blue lines indicate the dates that SAMU consortiums were implemented.
+- The rate was age-standardized (adjusted) by MG population in 2010.
+
+```{r mg-bh, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.height=10/1.618, fig.width=10,dpi = 300}
+mg <- readRDS("../data/mg_rate.rds")
+consorcio_df <- readRDS("../data/consorcio.rds") %>%
+  mutate(DATA_IMPLEMENTACAO = as.Date(DATA_IMPLEMENTACAO)) %>%
+  filter(lubridate::year(DATA_IMPLEMENTACAO) > 2008)
+
+gg_mortalidade <- ggplot(data = mg, aes(x = DATA, y = 1e5*TAXA_MORTALIDADE)) +
+  geom_vline(data = consorcio_df,  aes(xintercept = DATA_IMPLEMENTACAO), color = "steelblue", size = 1) +
+  geom_point(color = verde_ts, size = 2) +
+  geom_line(color = verde_ts, size = 1) +
+  geom_smooth(method = 'loess', color = "indianred2", size = 1) +
+  labs(y = "Mortality rate for 100.000", x = "") +
+  theme_minimal() +
+  theme(axis.text = element_text(size = 18),
+        axis.title = element_text(size = 18, face="bold"))
+
+gg_internacao <- ggplot(data = mg, aes(x = DATA, y = 1e5*TAXA_INTERNACAO)) +
+    geom_vline(data = consorcio_df,  aes(xintercept = DATA_IMPLEMENTACAO), color = "steelblue", size = 1) +
+  geom_point(color = verde_ts, size = 2) +
+  geom_line(color = verde_ts, size = 1) +
+  geom_smooth(method = 'loess', color = "indianred2", size = 1) +
+  labs(y = "Hospitalization rate per 100.000", x = "") +
+  theme_minimal() +
+  theme(axis.text = element_text(size = 18),
+        axis.title = element_text(size = 18, face="bold"))
+
+gg_letalidade <- ggplot(data = mg, aes(x = DATA, y = TAXA_LETALIDADE)) +
+    geom_vline(data = consorcio_df,  aes(xintercept = DATA_IMPLEMENTACAO), color = "steelblue", size = 1) +
+  geom_point(color = verde_ts, size = 2) +
+  geom_line(color = verde_ts, size = 1) +
+  geom_smooth(method = 'loess', color = "indianred2", size = 1) +
+  scale_y_continuous(labels = percent) + 
+  labs(y = "Hospitalization rate for 100.000", x = "") +
+  theme_minimal() +
+  theme(axis.text = element_text(size = 18),
+        axis.title = element_text(size = 18, face="bold"))
+gg_mortalidade
+```
+
+---
+## Lethality rate
+
+```{r, echo=FALSE}
+htmltools::img(src = "img/logo-mg.png", 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:0; padding:10px; width:15%')
+```
+
+- The blue lines indicate the dates that SAMU consortiums were implemented.
+- The rate was age standardized (adjusted) by MG hospitalization in 2010.
+
+```{r mg-letalidade, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.height=10/1.618, fig.width=10,dpi = 300}
+gg_letalidade
+```
+
+---
+## Hospitalization rate
+
+```{r, echo=FALSE}
+htmltools::img(src = "img/logo-mg.png", 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:0; padding:10px; width:15%')
+```
+
+- The blue lines indicate the dates that SAMU consortiums were implemented.
+- The rate was age-standardized (adjusted) by MG hospitalization in 2010.
+
+```{r mg-internacao, echo=FALSE, message=FALSE, warning=FALSE, paged.print=FALSE, fig.height=10/1.618, fig.width=10,dpi = 300}
+gg_internacao
+```
+
+---
+## Consortiums distribuition
+
+```{r, echo=FALSE}
+htmltools::img(src = "img/logo-mg.png", 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:0; padding:10px; width:15%')
+```
+
+<center>
+<div class="divborder">
+```{r mapa_consorcio, echo=FALSE, message=FALSE, warning=FALSE, child='mapa-consorcio.Rmd', out.width='100%'}
+```
+</div>
+</center>
+

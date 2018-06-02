@@ -1,0 +1,72 @@
+---
+title: "Research Topics"
+subtitle: "National Program Telehealth Brazil Networks - UFMG"
+author: "<br><br> Luís G. Silva e Silva <br> Advisor: Prof. Dr. Antonio Ribeiro"
+date: "2018"
+output:
+  xaringan::moon_reader:
+    # self_contained: true
+    # chakra: libs/remark-latest.min.js
+    # lib_dir: libs
+    css: ["custom.css", "default", "default-fonts", "hygge"]
+    nature:
+      highlightStyle: monokai-sublime
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+<link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Roboto+Condensed|Roboto+Slab'>
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+knitr::opts_chunk$set(echo = FALSE, eval = T, warning = F, message = F, 
+                      # dpi = 300,
+                      # dev = 'Cairo_svg',
+                      fig.align = 'center')
+source("R/utils.R")
+require(dplyr)
+require(ggplot2)
+require(scales)
+require(gridExtra)
+require(mapsBR)
+require(leaflet)
+require(ggthemes)
+require(data.table)
+require(sp)
+require(spdep)
+```
+
+# Outline
+```{r, echo=FALSE}
+htmltools::img(src = "img/logo-mg.png", 
+               alt = 'logo', 
+               style = 'position:absolute; top:0; right:0; padding:10px; width:15%')
+```
+
+1. Topic 1: Mortality and Lethality by Myocardial Infarction
+2. Topic 2: Medical Desert Analysis
+3. Future work
+
+---
+
+```{r introducao, child='sections/intro.Rmd'}
+```
+
+---
+
+```{r visualizacao, child='sections/vis.Rmd'}
+```
+
+---
+
+```{r metodologia, child='sections/meto.Rmd'}
+```
+
+---
+class: inverse, center, middle
+
+### `r icon::fa("envelope", size = 1)` lgsilvaesilva@gmail.com
+
+### `r icon::fa("github", size = 1)` lgsilvaesilva
+
+### `r icon::fa("twitter", size = 1)` lgsilvaesilva

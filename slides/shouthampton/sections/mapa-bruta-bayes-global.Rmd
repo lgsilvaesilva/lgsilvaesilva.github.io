@@ -1,0 +1,93 @@
+```{r}
+require(RColorBrewer)
+
+dados <- dados %>%
+  ungroup() %>%
+  group_by(ANO, MES) %>%
+  mutate(EB_MORTE_SIM = EBest(n = N_OBITO_SIM, x = POP)[, 2],
+         EB_MORTE_PAD_SIM = EBest(n = TX_PADRONIZADA_SIM*POP, x = POP)[, 2],
+         EB_INTER_PAD = EBest(n = TX_PADRONIZADA_INTERNACAO*POP, x = POP)[, 2],
+         E_INTER = POP*sum(N_OBITO)/sum(POP),
+         E_SIM = POP*sum(N_OBITO_SIM)/sum(POP),
+         E_EB_PAD_SIM = POP*EB_MORTE_PAD_SIM,
+         E_EB_PAD_INTER = POP*EB_INTER_PAD,
+         SMR_SIM = 100*N_OBITO_SIM/E_SIM)
+
+
+data(regMun)
+mg_shp <- subset(regMun, UF == "MG")
+mg_shp$COD_MUN <- trunc(mg_shp$COD/10)
+mun_ano <- dados %>%
+  filter(ANO == 2016 & MES == 6)
+
+consorcio_shp <- merge(mg_shp, mun_ano)
+brks <- 1e5 * unique(quantile(c(consorcio_shp$TX_PADRONIZADA_SIM, consorcio_shp$EB_MORTE_PAD_SIM), prob = seq(0, 1, length.out = 8), na.rm = T))
+my.palette <- brewer.pal(n = length(brks) - 1, name = "Greens")
+
+my_cut <- cut(1e5 * consorcio_shp$TX_PADRONIZADA_SIM, breaks = brks, dig.lab = 3, include.lowest = T)
+cores <- my.palette[my_cut]
+
+consorcio_shp$popup <- sprintf("<strong>%s</strong><br> Pop.:%s<br>Rate: %s<br>O = %s", consorcio_shp$NOME, consorcio_shp$POP, round(consorcio_shp$TX_PADRONIZADA_SIM*1e5, 1), round(consorcio_shp$N_OBITO_SIM, 1))
+
+bbox_mg <- bbox(consorcio_shp)
+map <- leaflet(data = consorcio_shp) %>%
+  addTiles() %>% 
+  fitBounds(bbox_mg[1, 1], bbox_mg[2, 1], bbox_mg[1, 2], bbox_mg[2, 2])
+
+mapa_smr <- map %>%
+  addPolygons(stroke = T,
+              color = "#bbbbbb",
+              popup = consorcio_shp$popup,
+              weight = 0.75,
+              smoothFactor = 0.1,
+              # opacity = 1.0,
+              fillOpacity = 0.75,
+              fillColor = cores,
+              highlightOptions = highlightOptions(color = "white", 
+                                                  weight = 2,
+                                                  bringToFront = TRUE)) %>%
+  addProviderTiles(providers$CartoDB.Positron,
+                   options = providerTileOptions(noWrap = T)) %>%
+  addLegend("bottomright", 
+            # pal = pal,
+            # values = consorcio_shp$TX_PADRONIZADA_SIM,
+            colors = my.palette,
+            labels = levels(my_cut),
+            # title = "Valor Médio",
+            # labFormat = labelFormat(prefix = "$"),
+            opacity = 1) 
+
+my_cut <- cut(1e5 * consorcio_shp$EB_MORTE_PAD_SIM, breaks = brks, dig.lab = 3, include.lowest = T)
+cores <- my.palette[my_cut]
+
+consorcio_shp$popup <- sprintf("<strong>%s</strong><br> Pop.:%s<br>Rate: %s<br>O = %s", consorcio_shp$NOME, consorcio_shp$POP, round(consorcio_shp$EB_MORTE_PAD_SIM*1e5, 1), round(consorcio_shp$N_OBITO_SIM, 1))
+
+bbox_mg <- bbox(consorcio_shp)
+map <- leaflet(data = consorcio_shp) %>%
+  addTiles() %>% 
+  fitBounds(bbox_mg[1, 1], bbox_mg[2, 1], bbox_mg[1, 2], bbox_mg[2, 2])
+
+mapa_smr_eb <- map %>%
+  addPolygons(stroke = T,
+              color = "#bbbbbb",
+              popup = consorcio_shp$popup,
+              weight = 0.75,
+              smoothFactor = 0.1,
+              # opacity = 1.0,
+              fillOpacity = 0.75,
+              fillColor = cores,
+              highlightOptions = highlightOptions(color = "white", 
+                                                  weight = 2,
+                                                  bringToFront = TRUE)) %>%
+  addProviderTiles(providers$CartoDB.Positron,
+                   options = providerTileOptions(noWrap = T)) %>%
+  addLegend("bottomright", colors = my.palette, labels = levels(my_cut),
+            # title = "Valor Médio",
+            # labFormat = labelFormat(prefix = "$"),
+            opacity = 1) 
+
+
+mapview::latticeView(mapa_smr, mapa_smr_eb, ncol = 2, sync = list(c(1:2)), sync.cursor = TRUE, no.initial.sync = FALSE)
+```
+
+
