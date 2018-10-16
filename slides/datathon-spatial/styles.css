@@ -1,0 +1,83 @@
+slides > slide.title-slide hgroup h1 {
+  font-weight: bold;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+slides > slide {
+  display: none;
+  font-family: 'Open Sans', Arial, sans-serif;
+  font-size: 26px;
+  color: #797979;
+  width: 900px;
+  height: 700px;
+  margin-left: -450px;
+  margin-top: -350px;
+  padding: 40px 60px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -webkit-transition: all 0.6s ease-in-out;
+  -moz-transition: all 0.6s ease-in-out;
+  -o-transition: all 0.6s ease-in-out;
+  transition: all 0.6s ease-in-out;
+
+  background-image: url(figures/ufmg_logo.png) !important;
+  background-size: 200px !important;
+  background-repeat: no-repeat !important;
+  background-position: 2% 98% !important;
+}
+
+h2 {
+    padding-left: 100px;
+    line-height: 65px;
+    letter-spacing: -2px;
+    color: #595959;
+    text-align: left;
+    font-size: 40px;
+}
+
+slides > slide:not(.nobackground):after {
+  content: '';
+}
+
+slide.current::before{
+  background-size: 100px 50px !important;
+  padding-left: 100px !important;
+  height: 75px !important;
+  bottom: 8px !important;
+  left: 10px !important;
+}
+#left {
+  left:-8.33%;
+  text-align: left;
+  float: left;
+  width:50%;
+  z-index:-10;
+  }
+
+#right {
+  left:31.25%;
+  top: 75px;
+  float: right;
+  text-align: left;
+  z-index:-10;
+  width:50%;
+  }
+  
+  .centered {
+    margin: 0 auto;
+    text-align: left;
+    width: 800px;
+}
+
+code.r{
+  font-size: 20px;
+}
+pre {
+  font-size: 16px
+}

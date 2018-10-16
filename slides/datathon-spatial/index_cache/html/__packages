@@ -1,0 +1,9 @@
+base
+leaflet
+sp
+rgdal
+mapsBR
+sf
+dplyr
+bindrcpp
+ggplot2

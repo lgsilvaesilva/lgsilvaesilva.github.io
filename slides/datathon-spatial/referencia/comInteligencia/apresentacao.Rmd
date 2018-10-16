@@ -1,0 +1,403 @@
+---
+title: 2º Encontro de Inteligência e Estratégia 
+output: 
+  ioslides_presentation:
+    widescreen: true
+    transition: faster
+    css: styles.css
+    template: template.html
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r lendo bases e caregando pacotes, echo=F, message=F}
+# Pacotes
+require(purrr)
+require(shiny)
+require(highcharter)
+require(leaflet)
+require(ggplot2)
+require(ggthemes)
+require(gridExtra)
+require(mapsBR)
+require(RColorBrewer)
+# Dados
+load("data/dados_graficos.RData")
+```
+
+## 
+
+<br><br><br><br>
+<div align = "center">
+<img src="figures/capa.png" height="100%" width="100%"/>
+</div>
+
+# O grupo
+## Quem somos?
+
+<br><br>
+
+<div align = "center">
+<img src="figures/quem_somos.png" height="100%" width="100%"/>
+</div>
+
+## Como funciona?
+
+<div align = "center">
+<img src="figures/como_funciona.png" height="75%" width="75%"/>
+</div>
+
+# Projetos
+## Projetos
+
+<br><br>
+<div align = "center">
+<img src="figures/projetos.png" height="100%" width="100%"/>
+</div>
+
+## Tecnologias
+
+<br>
+<div align = "center">
+<img src="figures/tecnologias.png" height="100%" width="100%"/>
+</div>
+
+# Veraz
+## Objetivo
+
+<br><br>
+<div align = "center">
+<img src="figures/objetivos_veraz.png" height="100%" width="100%"/>
+</div>
+
+## O portal da transparência
+
+<div align = "center">
+<img src="figures/portal_transparencia.png" height="100%" width="90%"/>
+</div>
+
+## Fonte de dados
+
+<br><br>
+<div align = "center">
+<img src="figures/dados_veraz.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_veraz_1.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_veraz_2.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_veraz_3.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_veraz_4.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_veraz_5.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_veraz_6.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_veraz_7.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_veraz_8.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_veraz_9.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_veraz_10.png" height="100%" width="90%"/>
+</div>
+
+## Mapa do bolsa família (2016)
+
+<center>
+```{r Bolsa família, echo = F, message=FALSE, warning=FALSE}
+data(regMun)
+
+dados_2016 <- dados_mun[ANO == 2016, ]
+regiao_shp_2016 <- subset(regMun, UF == "MG")
+regiao_shp_2016 <- merge(regiao_shp_2016, dados_2016, by.x = "COD", by.y = "MUNCODDV")
+
+bbox_br <- bbox(regiao_shp_2016)
+pal <- colorNumeric("Reds", regiao_shp_2016@data[, "valor_medio"])
+## ++ 2016 ----
+popup_out <- sprintf("<strong>%s</strong><br><br>Valor: R$ %s<br><br>Nº beneficiários: %s", 
+                     regiao_shp_2016@data[, "NOME"], 
+                     round(regiao_shp_2016@data[, "valor_medio"], 1),
+                     regiao_shp_2016@data[, "n_favorecido"])
+
+cores_mapa <-  pal(regiao_shp_2016@data[, "valor_medio"])
+
+l <- leaflet(data = regiao_shp_2016) %>%
+  clearShapes() %>%
+  addPolygons(stroke = T,
+              color = "#bbbbbb",
+              popup = popup_out,
+              weight = 0.75,
+              smoothFactor = 0.1,
+              fillOpacity = 0.9,
+              fillColor = cores_mapa,
+              highlightOptions = highlightOptions(color = "white", 
+                                                  weight = 2,
+                                                  bringToFront = TRUE)) %>%
+  addProviderTiles(providers$CartoDB.Positron,
+                   options = providerTileOptions(noWrap = T)) %>%
+  addLegend("bottomright", pal = pal, values = regiao_shp_2016@data[, "valor_medio"],
+            title = "Valor Médio",
+            labFormat = labelFormat(prefix = "$"),
+            opacity = 1) 
+
+l
+```
+</center>
+
+## Transferências (2016)
+
+<center>
+```{r treemap, echo = F}
+hctreemap(tm, 
+          allowDrillToNode = T, 
+          layoutAlgorithm = "squarified",
+          dataLabels = list(enabled = F),
+          levelIsConstant = F,
+          levels = list(list(level = 1,
+                             dataLabels = list(enabled = T)))) %>%
+  hc_tooltip(useHTML = T,
+             headerFormat = "<table>",
+             pointFormat = "Valor: R$ {point.value}",
+             footerFormat = "</table>") %>%
+  hc_title(text = "Transferências realizada pelo governo federal para BH, em 2016")
+```
+</center>
+
+## Próximos passos
+
+<br><br><br>
+<div align = "center">
+<img src="figures/planejamento_veraz.png" height="100%" width="100%"/>
+</div>
+
+# Subnotificação de estupros em mulheres
+## Objetivo
+
+<div align = "center">
+<img src="figures/objetivos_estupro.png" height="100%" width="100%"/>
+</div>
+
+## O Tabnet
+
+<div align="center">
+  <img src="figures/tabnet.gif" height="90%" width="90%" />
+</div>
+
+## Fontes de dados
+
+<div align = "center">
+<img src="figures/dados_estupro.png" height="100%" width="100%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_estupro_1.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_estupro_2.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_estupro_3.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_estupro_4.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_estupro_5.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_estupro_6.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_estupro_7.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_estupro_8.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_estupro_9.png" height="100%" width="90%"/>
+</div>
+
+## Alguns números
+
+<div align = "center">
+<img src="figures/numeros_estupro_10.png" height="100%" width="90%"/>
+</div>
+
+## Contagens de notificações
+
+```{r Gráfico das contagens, echo=FALSE}
+h1 <- highchart() %>%
+  hc_add_series(data = contagens_anuais, 
+                mapping = hcaes(y = CONTAGENS, x = factor(ANO)), 
+                type = "line", 
+                name = "Número de notificações",
+                lineColor = "#db4716", 
+                color = "#db4716",
+                lineWidth = 4,
+                marker = list(lineColor = "#db4716",
+                              lineWidth = 3)) %>%
+  hc_xAxis(categories = 2011:2016) %>%
+  hc_title(text = "Número de notificações por ano") %>%
+  hc_credits(enabled = TRUE, text = "Fonte: VIVA/SVS/MS",
+             style = list(fontSize = "12px")) 
+
+h2 <- highchart() %>%
+  hc_add_series(data = contagens_idades, 
+                mapping = hcaes(y = CONTAGENS, x = ANO, group = IDADE_CAT), 
+                type = "line", 
+                lineWidth = 4) %>%
+  hc_xAxis(categories = 2011:2016) %>%
+  hc_title(text = "Número de notificações por ano e faixa etária") %>%
+  hc_credits(enabled = TRUE, text = "Fonte: VIVA/SVS/MS",
+             style = list(fontSize = "12px")) 
+
+hw_grid(h1, h2, ncol = 2)
+
+```
+
+## Mapa das notificações
+
+```{r Mapa das notificações, echo = F, warning=F, message=F, results='hide'}
+
+g1 <- ggplot(regMun_df, mapping = aes(long, lat, group = group, fill = OCORREU)) + 
+  geom_polygon() +
+  geom_path(color = "white", size = 0.1) +
+  coord_equal() +
+  scale_fill_manual("Ocorrência de crime notificado", values = c("Sim" = cores[length(cores)-2],
+                                                                 "Não" = cores[3])) +
+  xlab("") + ylab("") +
+  theme_map() + 
+  labs(caption = "Fonte: VIVA/SVS/MS")
+
+g2 <- ggplot(regMun_df, mapping = aes(long, lat, group = group, fill = TAXA_BAYESIANA_BR)) + 
+  geom_polygon() +
+  geom_path(color = "white", size = 0.1) +
+  coord_equal() +
+  scale_fill_gradient_tableau("Red", "Taxa bayesiana empírica \n por 100.000 hab.") +
+  xlab("") + ylab("") +
+  theme_map() + 
+  labs(caption = "Fonte: VIVA/SVS/MS")
+
+g3 <- ggplot(regMun_df, mapping = aes(long, lat, group = group, fill = TAXA_CAT)) + 
+  geom_polygon() +
+  geom_path(color = "white", size = 0.1) +
+  coord_equal() +
+  scale_fill_manual("Taxa bayesiana empírica \n por 100.000 hab.", 
+                    values = cores[1:length(breaks)], 
+                    labels = levels(regMun_df$TAXA_CAT_UF)) +
+  xlab("") + ylab("") +
+  theme_map() + 
+  labs(caption = "Fonte: VIVA/SVS/MS")
+
+g4 <- ggplot(regMun_df, mapping = aes(long, lat, group = group, fill = TAXA_CAT_UF)) + 
+  geom_polygon() +
+  geom_path(color = "white", size = 0.1) +
+  coord_equal() +
+  scale_fill_manual("Taxa bayesiana empírica \n por 100.000 hab.", 
+                    values = cores, 
+                    labels = levels(regMun_df$TAXA_CAT_UF)) +
+  xlab("") + ylab("") +
+  theme_map() + 
+  labs(caption = "Fonte: VIVA/SVS/MS")
+
+g5 <- ggplot(regMun_df, mapping = aes(long, lat, group = group, fill = TAXA_CAT_BR)) + 
+  geom_polygon() +
+  geom_path(color = "white", size = 0.1) +
+  coord_equal() +
+  scale_fill_manual("Taxa bayesiana empírica \n por 100.000 hab.", 
+                    values = cores, 
+                    labels = levels(regMun_df$TAXA_CAT_BR)) +
+  xlab("") + ylab("") +
+  theme_map() + 
+  labs(caption = "Fonte: VIVA/SVS/MS")
+
+png(file = "figures/mapas.png", width = 850, height = 480)
+grid.arrange(g1, g5, nrow = 1)
+invisible(dev.off())
+```
+
+<div align = "center">
+<img src="figures/mapas.png" height="100%"/>
+</div>
+
+## Próximos passos
+
+<br><br><br>
+<div align = "center">
+<img src="figures/planejamento_estupro.png" height="100%" width="90%"/>
+</div>
+
+##
+
+<div align = "center">
+<img src="figures/capa_final.png" height="100%" width="100%"/>
+</div>
