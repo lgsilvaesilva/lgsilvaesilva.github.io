@@ -7,10 +7,66 @@
   <meta name="MobileOptimized" content="320">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, maximum-scale=1" />
   <meta name="author" content="Silva e Silva">
-  <meta name="description" content="Finder是mac的资源管理器，它的使用和配置与Windows区别还是挺多。习惯了Windows的使用使得Finder使用总觉得有些不便。配置好Finder能很大幅度提高我们的工作效率。 我会从遇到的问题着手，查找可以解决问题提高效率的解决方案。 Finder显示设置 显示隐藏文件夹 Mac系统Finder中的 /usr、/etc等文件夹都是隐藏文件，如果不进行设置用户是无法见到的。估计是因为mac用户并">
+  <meta name="description" content=" Finder是mac的资源管理器，它的使用和配置与Windows区别还是挺多。习惯了Windows的使用使得Finder使用总觉得有些不便。配置好Finder能很大幅度提高我们的工作效率。
+我会从遇到的问题着手，查找可以解决问题提高效率的解决方案。
+Finder显示设置 显示隐藏文件夹 Mac系统Finder中的 /usr、/etc等文件夹都是隐藏文件，如果不进行设置用户是无法见到的。估计是因为mac用户并不是所有人都对linux的操作十分熟悉，所以把这些对于系统十分重要的文件夹都进行隐藏了，免得用户误删等操作把系统玩坏。
+在terminal中输入下面命令：
+$ defaults write com.apple.finder AppleShowAllFiles -bool true  然后重启Finder，在terminal 中输入：
+$ killall Finder  当当当当，隐藏的文件夹就显示出来了！
+显示工具栏 选择 ⌈显示⌋ &gt; ⌈显示标签页栏⌋、⌈显示路径栏⌋、⌈显示边栏⌋、⌈显示预览⌋。
+ 对工具栏自定义：⌈显示⌋ &gt; ⌈自定义工具栏⌋，增加⌈新建文件夹⌋，或者还可以添加其他想要添加工具栏。
+ 复制文件夹路径 直接快捷键 ⌘⌥C 即可。
+不过需要注意的是，如果有其他程序设置了相同的快捷键可能会导致无法复制。实践中我把Spectacle中把窗口放在中央的快捷键设置取消了，因为会冲突。
+快速打开Terminal 其实这部分应该算是效率工具，但是更像是针对Finder路径这一问题的解决方案，因此放在这里了。
+其实还可以打开Terminal打上cd 之后直接把文件夹拖进去，就会显示文件夹的路径，或者 ⌘⌥C 复制路径到terminal，但是这样十分繁琐。
+这里提供两个方案。方案一：设置快捷键，但是只能在上层文件夹中选择需要的路径的文件夹后才能打开Terminal。方案二：安装Go2Shell，可以在Finder的Toolbox中安装一个插件，非常方便。
+方案一：设置快捷键 ⌈系统偏好设置⌋ &gt; ⌈键盘⌋ &gt; ⌈快捷键⌋ &gt; ⌈服务⌋ &gt; ⌈新建位于文件夹位置的终端窗口⌋。
+ 这样在Finder中选中文件夹，双指右击，就可以在服务中看到打开终端的选项。
+  还可以设置快捷键，我设置了 ⌘⌥⌃T，选中文件夹后使用快捷键后即可快速打开终端。
+方案二：安装Go2Shell  相比方案一，这个还是要方便高效更多。注意不要通过App Store安装，无法使用，直接通过Homebrew安装：
+$ brew cask install go2shell  安装后打开，点击⌈Install Go2Shell to Finder⌋
+ 然后就可以在Finder的工具栏发现Go2Shell的图标了。点击这个图标就会打开一个在当前文件夹的Terminal，很方便。
+快速新建文件 打开terminal，并输入touch xxx.txt即可，不过有时还是会觉得打开terminal有些繁琐，不如windows右键新建文本文件快捷。
+或者可以利用Automator来新建一个应用Applicstion。
+ 创建脚本 双击打开应用后选择⌈新建文档⌋。
+  选择新建⌈Application⌋。
+![application](/images/series/Mac小白探索记/2/application.jpg) 选择⌈Run AppleScript⌋，双击后右侧会自动出现脚本模板。
+![run-script](/images/series/Mac小白探索记/2/run-script.jpg) 新建文件代码如下：
+on run {input, parameters} tell application &quot;Finder&quot; set selection to make new file at (get insertion location) end tell return input end run  按 ⌘S 保存脚本，修改app名称和存放位置。
+![save-script](/images/series/Mac小白探索记/2/save-script.jpg) 修改图标 可以在这里下载图标，双击打开图标图片，⌘C 复制图标。选中NewFile.app，按 ⌘I 打开软件信息，点击左上角的图标，会有一圈蓝色光圈，然后按 ⌘V 粘贴图标，图标修改完成。
+  添加至Finder工具栏 打开两个Finder窗口，平铺。打开⌈显示⌋ &gt;⌈自定义工具栏⌋，将新建的NewFile.app图标拖到工具栏上。之后就可以直接在Finder窗口点击图标生成新的文件了，也可以使用spotlight使用NewFile新建文件。
+  版本控制    Version Action Time     1.0 Init 2018-01-30   1.1 Finder打开终端、复制路径 2018-02-14   1.2 新建文件 2018-03-07    ">
   
   <meta property="og:title" content="Mac小白探索记(2) Finder设置" />
-<meta property="og:description" content="Finder是mac的资源管理器，它的使用和配置与Windows区别还是挺多。习惯了Windows的使用使得Finder使用总觉得有些不便。配置好Finder能很大幅度提高我们的工作效率。 我会从遇到的问题着手，查找可以解决问题提高效率的解决方案。 Finder显示设置 显示隐藏文件夹 Mac系统Finder中的 /usr、/etc等文件夹都是隐藏文件，如果不进行设置用户是无法见到的。估计是因为mac用户并" />
+<meta property="og:description" content=" Finder是mac的资源管理器，它的使用和配置与Windows区别还是挺多。习惯了Windows的使用使得Finder使用总觉得有些不便。配置好Finder能很大幅度提高我们的工作效率。
+我会从遇到的问题着手，查找可以解决问题提高效率的解决方案。
+Finder显示设置 显示隐藏文件夹 Mac系统Finder中的 /usr、/etc等文件夹都是隐藏文件，如果不进行设置用户是无法见到的。估计是因为mac用户并不是所有人都对linux的操作十分熟悉，所以把这些对于系统十分重要的文件夹都进行隐藏了，免得用户误删等操作把系统玩坏。
+在terminal中输入下面命令：
+$ defaults write com.apple.finder AppleShowAllFiles -bool true  然后重启Finder，在terminal 中输入：
+$ killall Finder  当当当当，隐藏的文件夹就显示出来了！
+显示工具栏 选择 ⌈显示⌋ &gt; ⌈显示标签页栏⌋、⌈显示路径栏⌋、⌈显示边栏⌋、⌈显示预览⌋。
+ 对工具栏自定义：⌈显示⌋ &gt; ⌈自定义工具栏⌋，增加⌈新建文件夹⌋，或者还可以添加其他想要添加工具栏。
+ 复制文件夹路径 直接快捷键 ⌘⌥C 即可。
+不过需要注意的是，如果有其他程序设置了相同的快捷键可能会导致无法复制。实践中我把Spectacle中把窗口放在中央的快捷键设置取消了，因为会冲突。
+快速打开Terminal 其实这部分应该算是效率工具，但是更像是针对Finder路径这一问题的解决方案，因此放在这里了。
+其实还可以打开Terminal打上cd 之后直接把文件夹拖进去，就会显示文件夹的路径，或者 ⌘⌥C 复制路径到terminal，但是这样十分繁琐。
+这里提供两个方案。方案一：设置快捷键，但是只能在上层文件夹中选择需要的路径的文件夹后才能打开Terminal。方案二：安装Go2Shell，可以在Finder的Toolbox中安装一个插件，非常方便。
+方案一：设置快捷键 ⌈系统偏好设置⌋ &gt; ⌈键盘⌋ &gt; ⌈快捷键⌋ &gt; ⌈服务⌋ &gt; ⌈新建位于文件夹位置的终端窗口⌋。
+ 这样在Finder中选中文件夹，双指右击，就可以在服务中看到打开终端的选项。
+  还可以设置快捷键，我设置了 ⌘⌥⌃T，选中文件夹后使用快捷键后即可快速打开终端。
+方案二：安装Go2Shell  相比方案一，这个还是要方便高效更多。注意不要通过App Store安装，无法使用，直接通过Homebrew安装：
+$ brew cask install go2shell  安装后打开，点击⌈Install Go2Shell to Finder⌋
+ 然后就可以在Finder的工具栏发现Go2Shell的图标了。点击这个图标就会打开一个在当前文件夹的Terminal，很方便。
+快速新建文件 打开terminal，并输入touch xxx.txt即可，不过有时还是会觉得打开terminal有些繁琐，不如windows右键新建文本文件快捷。
+或者可以利用Automator来新建一个应用Applicstion。
+ 创建脚本 双击打开应用后选择⌈新建文档⌋。
+  选择新建⌈Application⌋。
+![application](/images/series/Mac小白探索记/2/application.jpg) 选择⌈Run AppleScript⌋，双击后右侧会自动出现脚本模板。
+![run-script](/images/series/Mac小白探索记/2/run-script.jpg) 新建文件代码如下：
+on run {input, parameters} tell application &quot;Finder&quot; set selection to make new file at (get insertion location) end tell return input end run  按 ⌘S 保存脚本，修改app名称和存放位置。
+![save-script](/images/series/Mac小白探索记/2/save-script.jpg) 修改图标 可以在这里下载图标，双击打开图标图片，⌘C 复制图标。选中NewFile.app，按 ⌘I 打开软件信息，点击左上角的图标，会有一圈蓝色光圈，然后按 ⌘V 粘贴图标，图标修改完成。
+  添加至Finder工具栏 打开两个Finder窗口，平铺。打开⌈显示⌋ &gt;⌈自定义工具栏⌋，将新建的NewFile.app图标拖到工具栏上。之后就可以直接在Finder窗口点击图标生成新的文件了，也可以使用spotlight使用NewFile新建文件。
+  版本控制    Version Action Time     1.0 Init 2018-01-30   1.1 Finder打开终端、复制路径 2018-02-14   1.2 新建文件 2018-03-07    " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="/blog/2018-01/mac%E5%B0%8F%E7%99%BD%E6%8E%A2%E7%B4%A2%E8%AE%B02-finder%E8%AE%BE%E7%BD%AE/" />
 <meta property="article:published_time" content="2018-01-30T20:21:13&#43;08:00"/>
@@ -302,7 +358,7 @@
 
     
       <li class="middot"></li>
-      <li>4 minutes read</li>
+      <li>One minute read</li>
     
   </ul>
   

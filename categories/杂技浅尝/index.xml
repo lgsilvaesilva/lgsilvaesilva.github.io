@@ -40,7 +40,34 @@
       <pubDate>Thu, 02 Aug 2018 15:49:22 +0800</pubDate>
       
       <guid>/blog/2018-08/%E5%89%8D%E7%AB%AF%E8%AF%95%E6%B0%B42-%E4%BD%BF%E7%94%A8docker%E9%95%9C%E5%83%8F%E7%9A%84sass%E9%85%8D%E7%BD%AE/</guid>
-      <description>前言 半年前，由于终于将博客主题初版设计出来准备开始实施，在less和sass中纠结良久选择了sass。为了保持环境纯净性，想用docker装sass，用node-sass，试了几次中间都失败，无奈放弃。几乎半年后的今天，莫名又开始有搭建网页的欲望，于是又开始折腾。不过这次运气不错，终于折腾成功。 Sass是什么 Sass 是一个 css的预编译器。它在css语法的基础上，引入了更多的变量、规则等功能，可以帮助c</description>
+      <description>前言 半年前，由于终于将博客主题初版设计出来准备开始实施，在less和sass中纠结良久选择了sass。为了保持环境纯净性，想用docker装sass，用node-sass，试了几次中间都失败，无奈放弃。几乎半年后的今天，莫名又开始有搭建网页的欲望，于是又开始折腾。不过这次运气不错，终于折腾成功。
+Sass是什么 Sass 是一个 css的预编译器。它在css语法的基础上，引入了更多的变量、规则等功能，可以帮助css的组织结构变得更合理和优雅，或者说更像一门编程语言，从而提高开发和维护效率。通俗说，就是在css上再套层更结构化的语法，帮助对样式进行组织和管理，再通过编译得到最终的css样式。
+与sass对标的是less，具体哪个更好对于初学者来说难以分辨和选择，但Bootstrap4抛弃了less转而选择sass和sass更大的社群都提供了选择了sass的理由。
+Sass选择 Sass vs Scss Sass实际上有两种语法，针对不同的后缀名称.sass和.scss。
+.sass是最早的语法，使用缩进而不是{}来表示嵌套，用换行而不是;来分隔属性，如下：
+$font-stack: Helvetica, sans-serif $primary-color: #333 body font: 100% $font-stack color: $primary-color  另一种.scss的格式仅在css3的语法基础上进行扩展，如下：
+$font-stack: Helvetica, sans-serif; $primary-color: #333; body { font: 100% $font-stack; color: $primary-color; }  对于码农来说，.scss相对更符合习惯一些，所以之后会选择后者。
+Ruby Sass vs Libsass vs Dart Sass 在官网最下方可以看到三个不同的Sass实现。
+Ruby Sass是最早的Sass，网上很多资料都是基于ruby的，不过这个实现版本作者之后不会再更新维护了。
+Libsass是使用C进行实现的版本，所以这个版本速度最快，Sassc就是在Libsass外套了一层wrapper。不过该版本的更新相对没有那么频繁和活跃，毕竟不是主要更新的实现版本。
+Dart Sass是替代Ruby Sass的实现版本，也是现在最主要的开发版本，新的功能也会主要在该实现版本中先进行集成。
+编译环境配置 估计很少有人像我这样折腾又莫名对一些点特别执着（或者说钻牛角尖）。当初一心想用docker把所有和开发环境配置相关的整理起来，折腾node-sass的dockerfile好久以失败告终。这次终于找到一个可以用的sass环境镜像，并根据此建立了自己的docker镜像，具体配置及使用方法在Libsass Docker。但由于该镜像基于libsass，一些功能并没有集成（比如--watch），所以又基于dart sass生成一版镜像，具体方法在Dart Sass Docker。
+两种镜像的比较如下：
+    Libsass Docker Dart Sass Docker     Size 8.76MB 680MB   Writen in C JS   Compiling Speed Fast Normal   Integrated with JS No Yes   Function Limited Full   Update Feq &amp;amp; Priority Normal First Priority    Libsass Docker 我建立了我自己的sass镜像，对应的Dockerfile在此（参考了的jbergknoff/sass），就内容上来说基本一致，都是使用的alpine为base image，都是使用sassc和libsass。有一些细节上的区别，但可能最大的区别就是我的镜像是新建的，sassc和libsass版本较新吧。该镜像一共才8.76MB。
+在设立Dockerfile的时候纠结过是使用ENTRYPOINT还是CMD，但由于该镜像只用作Sass的编译，因此使用了前者。
+Libsass Docker配置 首先需要获取镜像，打开终端输入：
+$ docker pull orianna/libsass  然后就可以调用docker镜像来编译sass/scss了。为了简化操作，可以使用alias设置别名并保存。
+配置需要写到配置文件，有两个选择：
+ 对全部用户生效：修改 /etc/profile文件 对当前用户生效：修改 ~/.profile文件 （仅针对Mac，linux大多数情况下修改 ~/.bashrc）  我将用户自定义部分还是放入了~/.profile文件：
+$ vi ~/.profile  增加以下内容，给起个别称 libsass，这样之后就可以将docker镜像当做本地命令使用了，非常方便：
+# config alias alias libsass=&amp;quot;docker run -it --rm -v \$(pwd):/sass -v \$(pwd):/output orianna/libsass:latest&amp;quot;  记得source一下，使配置文件立即生效：
+$ source ~/.profile  现在开始就可以直接使用 libsass 来启动sass的docker镜像了。
+Libsass Docker使用方法 由于已经设置了alias，所以直接按以下方式即可编译sass/scss文件为css文件：
+$ libsass ORIGIN.sass DEST.css  需要注意的是，工作目录为当前目录，所以基本就可以当做本地的命令执行了，很方便。
+如果需要执行该容器中其他命令，则需要在docker命令中使用--entrypoint进行覆盖，方法如下：
+$ docker run --name my-sass -it --rm --entrypoint sh orianna/libsass  Dart Sass Docker 由于Sassc缺少一些功能，而最新最全的功能都会在Dart Sass上，因此又研究一下建一个dart-sass的镜像使用。Dart Sass的github给了不少安装方法，本想在alpine上用standalone版的，但总是报错说找不到dart，于是直接用了node作为base image。想用node:alpine减少镜像的大小，但结果没有建成，所以现在镜像有680MB。
+Dart Sass Docker配置 首先需要获取镜像，打开终端输入：
+$ docker pull orianna/dart-sass  然后就可以调用docker镜像来编译sass/scss了。为了简化操作，可以使用alias设置别名并保存。</description>
     </item>
     
     <item>
@@ -49,7 +76,19 @@
       <pubDate>Wed, 01 Aug 2018 10:23:48 +0800</pubDate>
       
       <guid>/blog/2018-08/%E5%89%8D%E7%AB%AF%E8%AF%95%E6%B0%B41-%E5%89%8D%E7%AB%AF%E6%8A%80%E6%9C%AF%E8%B7%AF%E7%BA%BF/</guid>
-      <description>前言 对于前端的了解欲望实际上是从想对博客主题进行修改开始的。但是前端这部分一直对我来说是个谜，虽然这些名词都能搜索到，但一直傻傻的不得其门而入。总算在一年后的今天，尽管还有很多地方暂时是迷雾状态，但貌似略了解一点前端的整体框架。现在算是开了新的一个系列，在此算是记录一下我了解的前端的技术路线，如果那些和我一样的前端小白们能通过这个也大概了解一点到底现在需要学的、用的是什么，就再好不过了。 对了，先声</description>
+      <description> 前言 对于前端的了解欲望实际上是从想对博客主题进行修改开始的。但是前端这部分一直对我来说是个谜，虽然这些名词都能搜索到，但一直傻傻的不得其门而入。总算在一年后的今天，尽管还有很多地方暂时是迷雾状态，但貌似略了解一点前端的整体框架。现在算是开了新的一个系列，在此算是记录一下我了解的前端的技术路线，如果那些和我一样的前端小白们能通过这个也大概了解一点到底现在需要学的、用的是什么，就再好不过了。
+对了，先声明下，这篇是作为非前端工程师不负责任的认知，个人觉得对于一个外行，且也并没有打算在这一行进行深入，仅作为快速了解、应用的人来说应该是个不错的交流。
+技术分工 既然说到前端技术路线，那就需要先确定下前端是什么。
+前端，通俗来说是和后端所对应的，通常指用户所能看到的网页以及交互的部分。一般来说，和用户直接打交道的都是前端，前端向后端请求数据以及提交数据，后端对用户提交的数据进行解析、服务器调度与功能操作，再返回数据给前端。所以我理解的前端的部分主要分成以下几个部分：前端的界面UI及交互UX，前端数据获取request与解析，前端数据提交返回。
+通常，前端UI大多涉及静态页面html及css样式，但若需要一些动态交互和动作，一般都离不开js的开发。对于数据获取、提交等数据绑定的功能，更是离不开js大法。一般常说的vue.js、react.js都提供了不少相关的功能组件，便于前端工程师快速开发。
+此外常听到的工具还有gulp、webpack等主要针对自动化、打包的工具，针对的功能点会有些不同，但具体还未深入研究。
+静态页面分工 一般网上大多数都在讨论和学习js大法，毕竟通过上段对于简单技术分工和技能点来说，js占据了非常重要的位置。但对于初学者来说，一般接触最多的是静态页面，毕竟很多时候只需要做个简单demo，或者是搭建博客界面之类的简单网页，需要的是轻量级的敏捷开发即可，而静态页面是与用户最直接的窗口。比如我来说，开始需要接触也是因为对想生成自己的博客主题，这就不能不开始学习这一部分。
+虽然说起来css和html不难，语法真不难，但就是因为它们太简单，中间的样式调整、覆盖、冲突的逻辑实在是难以捉摸，调整起来拆东墙补西墙，一点也不够结构化成体系。所以对于静态页面也可以分成css样式定义和html静态页面生成这两部分。
+css样式 css比较难以结构化，可以使用css的预编译器来编写，可以使之更易于管理。常用的预编译器有sass和less。
+除了有css预编译的利器外，对于敏捷开发来说，还有一些css样式库，比如大名鼎鼎的bootstrap，虽然bootstrap也集成了一些js和组件，但基本主要用作css布局用的样式库。尽管bootstrap也被称为前端框架，但是和vue以及react等的框架并不是一个含义，bootstrap更多是css样式层面的。
+html静态页面生成 有了css样式总是要生成静态页面的，这就需要生成html静态页面。最简单的就是直接写html，确定html布局，但是这样会很繁琐。因此有了不少静态页面生成器，比如我使用的hugo，还有jekyll、hexo。有了这些生成器，只需要定义html模板，然后使用模板，以后对于内容进行删减也不需要对html直接进行修改。生成了静态页面后就可以托管在服务器上。
+网页的生成也并不是总需要生成最重的静态页面的，比如python的轻量级网页应用框架flask，只要运行，可以自动调用html模板生成网页。
+版本控制    Version Action Time     1.0 Init 静态页面路线 2018-08-05    </description>
     </item>
     
     <item>
@@ -58,7 +97,26 @@
       <pubDate>Tue, 20 Mar 2018 16:46:17 +0800</pubDate>
       
       <guid>/blog/2018-03/blog%E5%85%BB%E6%88%90%E8%AE%B07-hugo%E5%A4%9A%E7%BA%A7%E5%88%97%E8%A1%A8%E6%97%A0%E6%B3%95%E6%98%BE%E7%A4%BA-markdown%E7%9A%84bug%E5%90%88%E9%9B%86/</guid>
-      <description>前言 又一次开始折腾Markdown了，不过这一次是因为好好的md文件，在typora中显示的好好的，但在Hugo渲染后格式就不对了，引起我这次探究主要问题在多级列表。考虑到毕竟两个软件的markdown渲染引擎不同，我并没有用到很特别的语法。之前在引用上也碰到了问题，typora中能很好地识别我想要的引用段落，但是Hugo不行。所以这次探究下是哪里出了问题，以及对应的解决方案。 既然已经提到了mar</description>
+      <description>前言 又一次开始折腾Markdown了，不过这一次是因为好好的md文件，在typora中显示的好好的，但在Hugo渲染后格式就不对了，引起我这次探究主要问题在多级列表。考虑到毕竟两个软件的markdown渲染引擎不同，我并没有用到很特别的语法。之前在引用上也碰到了问题，typora中能很好地识别我想要的引用段落，但是Hugo不行。所以这次探究下是哪里出了问题，以及对应的解决方案。
+既然已经提到了markdown，在针对问题之前也记录下现在hugo的markdown解析引擎。Markdown解析器有很多，最广泛应用的是GitHub Flavored Markdown的解析器(GFM)，基于CommonMark进行了拓展。Hugo现在默认使用Blackfriday作为Markdown解析引擎，只要日志文件是以.md或者.markdown结尾即可，可以参考这里在配置文件中配置相关参数。除了Blackfriday这个使用最广泛的引擎之外，hugo还支持mmark，mmark是一个基于Blackfriday之上增加了更多拓展语法的解析器。有两种方式可以声明使用mmark，一种是日志文件以.mmark结尾，另一种在日志文件的头部增加markup: mmark声明使用mmark进行解析。
+ 问题列表 以下是问题列表：
+ 无序列表的多级列表无法显示层级，即应表现为:
+  have a try  first second  another     却表现为(空心应为实心)：
+  have a try  first second another    有序列表下的无序列表表现为有序列表，即应表现为:
+  have a try  first second    却表现为：
+  have a try  first second    引用中的代码段无法识别正确结束位置，即应表现为:
+  In the quote
+$ This is code fence   Out the quote
+$ Another code fence   却表现为：
+  In the quote
+&amp;gt; $ This is code fence &amp;gt; ``` Out the quote ```shell $ Another code fence     问题定位&amp;amp;解决方案  无序列表的多级列表无法显示层级
+使用BlackFriday。
+这个问题可以拆分为两个问题，一是无法显示多级列表，二是无序列表的多级标签都为小黑点。 对于前者，无法显示多级列表一般是因为段落前的空格不够，如果2个空格无法使markdown渲染器认为是新的层级，就改为4个空格。
+对于第二个问题，受这个解答提示，发现是cocoa这个主题的css设置。在static/css/override.css中增加：
+/* Nested Unordered List */ section.main .content .markdown ul &amp;gt; li { list-style-type: disc; } section.main .content .markdown ul &amp;gt; li &amp;gt; ul &amp;gt; li { list-style-type: circle; } section.main .content .markdown ul &amp;gt; li &amp;gt; ul &amp;gt; li &amp;gt; ul &amp;gt; li { list-style-type: square; }  有序列表下的无序列表表现为有序列表
+使用BlackFriday。
+这个问题也可以通过css设置解决。在static/css/override.css中增加：
+/* Mix List */ section.main .content .markdown ul &amp;gt; li &amp;gt; ol &amp;gt; li { list-style-type: decimal; } section.main .content .markdown ol &amp;gt; li &amp;gt; ul &amp;gt; li { list-style-type: disc; } section.</description>
     </item>
     
     <item>
@@ -67,7 +125,35 @@
       <pubDate>Tue, 30 Jan 2018 20:21:13 +0800</pubDate>
       
       <guid>/blog/2018-01/mac%E5%B0%8F%E7%99%BD%E6%8E%A2%E7%B4%A2%E8%AE%B02-finder%E8%AE%BE%E7%BD%AE/</guid>
-      <description>Finder是mac的资源管理器，它的使用和配置与Windows区别还是挺多。习惯了Windows的使用使得Finder使用总觉得有些不便。配置好Finder能很大幅度提高我们的工作效率。 我会从遇到的问题着手，查找可以解决问题提高效率的解决方案。 Finder显示设置 显示隐藏文件夹 Mac系统Finder中的 /usr、/etc等文件夹都是隐藏文件，如果不进行设置用户是无法见到的。估计是因为mac用户并</description>
+      <description> Finder是mac的资源管理器，它的使用和配置与Windows区别还是挺多。习惯了Windows的使用使得Finder使用总觉得有些不便。配置好Finder能很大幅度提高我们的工作效率。
+我会从遇到的问题着手，查找可以解决问题提高效率的解决方案。
+Finder显示设置 显示隐藏文件夹 Mac系统Finder中的 /usr、/etc等文件夹都是隐藏文件，如果不进行设置用户是无法见到的。估计是因为mac用户并不是所有人都对linux的操作十分熟悉，所以把这些对于系统十分重要的文件夹都进行隐藏了，免得用户误删等操作把系统玩坏。
+在terminal中输入下面命令：
+$ defaults write com.apple.finder AppleShowAllFiles -bool true  然后重启Finder，在terminal 中输入：
+$ killall Finder  当当当当，隐藏的文件夹就显示出来了！
+显示工具栏 选择 ⌈显示⌋ &amp;gt; ⌈显示标签页栏⌋、⌈显示路径栏⌋、⌈显示边栏⌋、⌈显示预览⌋。
+ 对工具栏自定义：⌈显示⌋ &amp;gt; ⌈自定义工具栏⌋，增加⌈新建文件夹⌋，或者还可以添加其他想要添加工具栏。
+ 复制文件夹路径 直接快捷键 ⌘⌥C 即可。
+不过需要注意的是，如果有其他程序设置了相同的快捷键可能会导致无法复制。实践中我把Spectacle中把窗口放在中央的快捷键设置取消了，因为会冲突。
+快速打开Terminal 其实这部分应该算是效率工具，但是更像是针对Finder路径这一问题的解决方案，因此放在这里了。
+其实还可以打开Terminal打上cd 之后直接把文件夹拖进去，就会显示文件夹的路径，或者 ⌘⌥C 复制路径到terminal，但是这样十分繁琐。
+这里提供两个方案。方案一：设置快捷键，但是只能在上层文件夹中选择需要的路径的文件夹后才能打开Terminal。方案二：安装Go2Shell，可以在Finder的Toolbox中安装一个插件，非常方便。
+方案一：设置快捷键 ⌈系统偏好设置⌋ &amp;gt; ⌈键盘⌋ &amp;gt; ⌈快捷键⌋ &amp;gt; ⌈服务⌋ &amp;gt; ⌈新建位于文件夹位置的终端窗口⌋。
+ 这样在Finder中选中文件夹，双指右击，就可以在服务中看到打开终端的选项。
+  还可以设置快捷键，我设置了 ⌘⌥⌃T，选中文件夹后使用快捷键后即可快速打开终端。
+方案二：安装Go2Shell  相比方案一，这个还是要方便高效更多。注意不要通过App Store安装，无法使用，直接通过Homebrew安装：
+$ brew cask install go2shell  安装后打开，点击⌈Install Go2Shell to Finder⌋
+ 然后就可以在Finder的工具栏发现Go2Shell的图标了。点击这个图标就会打开一个在当前文件夹的Terminal，很方便。
+快速新建文件 打开terminal，并输入touch xxx.txt即可，不过有时还是会觉得打开terminal有些繁琐，不如windows右键新建文本文件快捷。
+或者可以利用Automator来新建一个应用Applicstion。
+ 创建脚本 双击打开应用后选择⌈新建文档⌋。
+  选择新建⌈Application⌋。
+![application](/images/series/Mac小白探索记/2/application.jpg) 选择⌈Run AppleScript⌋，双击后右侧会自动出现脚本模板。
+![run-script](/images/series/Mac小白探索记/2/run-script.jpg) 新建文件代码如下：
+on run {input, parameters} tell application &amp;quot;Finder&amp;quot; set selection to make new file at (get insertion location) end tell return input end run  按 ⌘S 保存脚本，修改app名称和存放位置。
+![save-script](/images/series/Mac小白探索记/2/save-script.jpg) 修改图标 可以在这里下载图标，双击打开图标图片，⌘C 复制图标。选中NewFile.app，按 ⌘I 打开软件信息，点击左上角的图标，会有一圈蓝色光圈，然后按 ⌘V 粘贴图标，图标修改完成。
+  添加至Finder工具栏 打开两个Finder窗口，平铺。打开⌈显示⌋ &amp;gt;⌈自定义工具栏⌋，将新建的NewFile.app图标拖到工具栏上。之后就可以直接在Finder窗口点击图标生成新的文件了，也可以使用spotlight使用NewFile新建文件。
+  版本控制    Version Action Time     1.0 Init 2018-01-30   1.1 Finder打开终端、复制路径 2018-02-14   1.2 新建文件 2018-03-07    </description>
     </item>
     
     <item>
@@ -76,7 +162,29 @@
       <pubDate>Tue, 30 Jan 2018 15:04:48 +0800</pubDate>
       
       <guid>/blog/2018-01/mac%E5%B0%8F%E7%99%BD%E6%8E%A2%E7%B4%A2%E8%AE%B01-%E5%9F%BA%E6%9C%AC%E8%AE%BE%E7%BD%AE%E4%B8%8E%E5%B8%B8%E7%94%A8%E8%BD%AF%E4%BB%B6/</guid>
-      <description>序 原本打算将所有相关内容只写在一篇博文里，但后面发现越加越多，内容越来越零散，最后决定进行拆分，也变为一个系列。我是2017年底才刚开始深入使用mac，算是mac小白一枚，在探索的过程中想将一些我觉得高效实用的信息记录下来，希望其他和我一样刚开始学习mac的小伙伴们能看了后有所帮助。 第一篇主要介绍新入手mac后的基本设置与常用软件安装。终于转到有terminal的电脑上了，既然换了Mac OS，需要</description>
+      <description>序 原本打算将所有相关内容只写在一篇博文里，但后面发现越加越多，内容越来越零散，最后决定进行拆分，也变为一个系列。我是2017年底才刚开始深入使用mac，算是mac小白一枚，在探索的过程中想将一些我觉得高效实用的信息记录下来，希望其他和我一样刚开始学习mac的小伙伴们能看了后有所帮助。
+第一篇主要介绍新入手mac后的基本设置与常用软件安装。终于转到有terminal的电脑上了，既然换了Mac OS，需要重新开始找软件。Windows上的软件安装习惯是网上找软件exe，下载安装，基本一个版本能用很久，没有习惯更是懒得经常更新。Linux上倒是有包管理器，但用的不多，只在编程时用过，不过编程包依赖特别重要，一般不会修改，因此基本没有鼓捣过。这次准备换电脑，看着同事非常优雅自如地更新软件，有些羡慕呀，这样才能最大化开源/更新频繁的软件优势。App Store倒是可以随时更新，不过不是所有软件都发布在App Store上，所以这里记录下我需要的配置、计划安装的软件，以及安装方法，以供参照。PS，不定期更新。
+首先说明下按键符号，如果第一次使用mac可能会有些混，因此这里说明一下：
+⌘ - command
+⌥ - option
+⌃ - control
+⇧ - shift
+␣ - space
+Windows平台上control在快捷键中使用频繁，而转到mac平台后很多通用快捷键设置需要替代为⌘command，比如⌘C复制、⌘V粘贴，快捷键会在其他文中详述。
+Mac系统基本配置 触摸板设置 触摸板是mac最常用的工具，更好地设置触摸板使用起来可以方便省力很多。
+⌈系统偏好设置⌋ &amp;gt; ⌈触控板⌋ ，建议将所有手势都选上，使用起来很方便，也可以节省快捷键。我常用的手势有：轻点代替点按、双指点按代表右击、三指点按选词查询词典、四指合拢打开Lauchpad、四指分开显示桌面 、三指向上划mission control。
+Touchbar设置 ⌈系统偏好设置⌋ &amp;gt; ⌈键盘⌋ &amp;gt; ⌈键盘⌋ &amp;gt; 点击⌈自定义控制条⌋ 即可进行设置。
+ 可以将一些找起来比较麻烦但常用的设置放在touchbar，移除默认设置touchbar中一些不常用的功能。我放了night shift、免打扰和屏幕保护程序。应用程序中的touchbar的功能和该应用程序本身功能有关，有些可以在程序中设置touchbar的功能。
+此外有很多人推荐的BetterTouchTool也可以，不过这款软件收费。
+第三方软件安装 有些软件并没有在apple认可的开发者列表内，如果要安装，首先需要mac允许软件来自任何人，而这个估计因为安全问题，属于隐藏设置，需要先打开terminal，输入：
+$ sudo spctl --master-disable  然后在⌈系统偏好设置⌋ &amp;gt; ⌈安全与隐私⌋ 中选择 ⌈任何来源⌋。安装完毕后，为了安全考虑，最好能够再选择回来自可信任的开发者。
+ 包管理器 Homebrew Mac OS用户大多使用Homebrew作为包管理工具，据说相当于Ubuntu下的apt-get。官网上的一句话介绍是 ⌈The missing package manager for macOS⌋，也就是针对Mac OS所开发的包管理器。
+Homebrew官网给出了安装brew的方法，只要复制下面脚本在terminal中粘贴执行就安装成功。
+$ /usr/bin/ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)&amp;quot;  而有了Homebrew后，包的管理和更新就方便了很多。
+Homebrew常用指令    指令内容 指令     帮助文档 brew help   安装某包，比如git brew install git   卸载某包，比如git brew uninstall git   强制卸载某包所有版本，比如git brew uninstall git --force   Homebrew本身更新 brew update   查看那些包过期了 brew outdated   将所有包都更新 brew upgrade   指定某包更新，比如git brew upgrade git   锁定某包不让更新，比如git brew pin git   解锁某包可以继续更新，比如git brew unpin git   卸载所有过时的包 brew cleanup   卸载所有过时的包，并显示即将卸载的包 brew cleanup -n   卸载过时的包，比如git brew cleanup git   列出所有brew装的包 brew list   显示软件信息 brew info   显示已安装的包依赖 brew deps --installed   查看brew包下载缓存 brew --cache    具体可查看帮助文档。
+如需卸载Homebrew，复制下面指令到Terminal执行：
+$ ruby -e &amp;quot;$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/uninstall)&amp;quot;  遇到的问题：
+ brew update  更新Homebrew本身时可能需要科学上网。</description>
     </item>
     
   </channel>
