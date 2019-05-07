@@ -13,8 +13,6 @@ draft: false
 summary: "VORONOYS is a team composed by four statisticians and a political scientist. It begins motivated by the first CEPESP Data challenge, in which the main objective was to show new perspectives on the Brazilian elections. The name is based on the mathematical technique used in this work called Voronoi tessellation."
 ---
 
-# Voronoys <a href='https://voronoys.shinyapps.io/voronoys/'><img src='/projects/voronoys/logo_app.png' align="right" height="138.5" /></a>
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```

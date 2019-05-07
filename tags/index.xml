@@ -6,7 +6,7 @@
     <description>Recent content in Tags on lgsilvaesilva</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zn-Hans</language>
-    <lastBuildDate>Sun, 14 Jul 2019 00:14:19 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Jul 2018 00:14:19 +0800</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,45 +14,9 @@
     <item>
       <title>Applied Statistics</title>
       <link>/tags/applied-statistics/</link>
-      <pubDate>Sun, 14 Jul 2019 00:14:19 +0800</pubDate>
+      <pubDate>Sat, 14 Jul 2018 00:14:19 +0800</pubDate>
       
       <guid>/tags/applied-statistics/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Big Data</title>
-      <link>/tags/big-data/</link>
-      <pubDate>Sun, 14 Jul 2019 00:14:19 +0800</pubDate>
-      
-      <guid>/tags/big-data/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Data Visualization</title>
-      <link>/tags/data-visualization/</link>
-      <pubDate>Sun, 14 Jul 2019 00:14:19 +0800</pubDate>
-      
-      <guid>/tags/data-visualization/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Shiny Dashboard</title>
-      <link>/tags/shiny-dashboard/</link>
-      <pubDate>Sun, 14 Jul 2019 00:14:19 +0800</pubDate>
-      
-      <guid>/tags/shiny-dashboard/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Voronoi Tesselation</title>
-      <link>/tags/voronoi-tesselation/</link>
-      <pubDate>Sun, 14 Jul 2019 00:14:19 +0800</pubDate>
-      
-      <guid>/tags/voronoi-tesselation/</guid>
       <description></description>
     </item>
     
@@ -125,6 +89,15 @@
       <pubDate>Fri, 16 Mar 2018 20:37:00 -0300</pubDate>
       
       <guid>/tags/r-basics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Visualization</title>
+      <link>/tags/data-visualization/</link>
+      <pubDate>Fri, 16 Mar 2018 20:36:00 -0300</pubDate>
+      
+      <guid>/tags/data-visualization/</guid>
       <description></description>
     </item>
     
