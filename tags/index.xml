@@ -6,26 +6,98 @@
     <description>Recent content in Tags on lgsilvaesilva</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zn-Hans</language>
-    <lastBuildDate>Sat, 13 Apr 2019 00:14:19 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Jul 2018 00:14:19 +0800</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>blog</title>
-      <link>/tags/blog/</link>
-      <pubDate>Sat, 13 Apr 2019 00:14:19 +0800</pubDate>
+      <title>Applied Statistics</title>
+      <link>/tags/applied-statistics/</link>
+      <pubDate>Sat, 14 Jul 2018 00:14:19 +0800</pubDate>
       
-      <guid>/tags/blog/</guid>
+      <guid>/tags/applied-statistics/</guid>
       <description></description>
     </item>
     
     <item>
-      <title>css</title>
-      <link>/tags/css/</link>
-      <pubDate>Sat, 13 Apr 2019 00:14:19 +0800</pubDate>
+      <title>Automatic Reports</title>
+      <link>/tags/automatic-reports/</link>
+      <pubDate>Sat, 14 Jul 2018 00:14:19 +0800</pubDate>
       
-      <guid>/tags/css/</guid>
+      <guid>/tags/automatic-reports/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Mining</title>
+      <link>/tags/data-mining/</link>
+      <pubDate>Sat, 14 Jul 2018 00:14:19 +0800</pubDate>
+      
+      <guid>/tags/data-mining/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Machine Learning</title>
+      <link>/tags/machine-learning/</link>
+      <pubDate>Sat, 14 Jul 2018 00:14:19 +0800</pubDate>
+      
+      <guid>/tags/machine-learning/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R</title>
+      <link>/tags/r/</link>
+      <pubDate>Sat, 14 Jul 2018 00:14:19 +0800</pubDate>
+      
+      <guid>/tags/r/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Spatial</title>
+      <link>/tags/spatial/</link>
+      <pubDate>Sat, 14 Jul 2018 00:14:19 +0800</pubDate>
+      
+      <guid>/tags/spatial/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Marketing</title>
+      <link>/tags/marketing/</link>
+      <pubDate>Fri, 16 Mar 2018 20:38:00 -0300</pubDate>
+      
+      <guid>/tags/marketing/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Coaching</title>
+      <link>/tags/coaching/</link>
+      <pubDate>Fri, 16 Mar 2018 20:37:00 -0300</pubDate>
+      
+      <guid>/tags/coaching/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>R basics</title>
+      <link>/tags/r-basics/</link>
+      <pubDate>Fri, 16 Mar 2018 20:37:00 -0300</pubDate>
+      
+      <guid>/tags/r-basics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Visualization</title>
+      <link>/tags/data-visualization/</link>
+      <pubDate>Fri, 16 Mar 2018 20:36:00 -0300</pubDate>
+      
+      <guid>/tags/data-visualization/</guid>
       <description></description>
     </item>
     

@@ -1,0 +1,50 @@
+---
+title: "Programa SUS"
+author: "Luís G. Silva e Silva"
+date: 2018-07-14
+categories: ["Projects"]
+tags: ["R", "Machine Learning", "Data Mining", "Automatic Reports", "Applied Statistics"]
+banner: "projects/programasus/programasus.png"
+summary: "The Arouca Platform is a project that aimed at visualize the health professionals' locations and identify regions with low rate of medical assistance."
+---
+
+```{r setup, include=FALSE}
+knitr::opts_knit$set(base.dir = 'projects/programasus/')
+```
+
+# Descrição
+
+O controle da produção do Sistema Único de Saúde (SUS) é um desafio de vital importância para seus gestores, e este controle é central para a missão do Departamento de Regulação, Avaliação e Controle (DRAC) da Secretaria de Atenção à Saúde (SAS) do Ministério da Saúde (MS). Com o objetivo de melhorar seu ferramental de controle, o DRAC solicitou à UFMG o desenvolvimento de um sistema que explore técnicas de aprendizado de máquina e de mineração de dados para a detecção automática de desvios de séries históricas e de outras anomalias.
+
+# Objetivos
+
+O objetivo principal é a detecção de produções anômalas através de metodologias estatísticas e/ou de aprendizado de máquina. As produções dizem respeito ao número de procedimentos realizados ou então aos preços operados por prestadores de serviço de saúde. Além disso, a estranheza associada ao estabelecimento é expressa através de um escore entre 0 e 1 de forma que quanto maior o escore mais estranha (possívelmente alguma fraude) é a produção do estabelecimento em questão.
+
+Outra demanda é a confecção de relatórios personalizados para cada possível combinação de janela de tempo, hospital e procedimento (aproximadamente  3.240.000.000 possíveis relatórios ). Ou seja, para cada possível janela de tempo (3, 6, 12 e 24 meses) o usuário pode escolher um procedimento (por exemplo: tomografia) e avaliar a estranheza de um determinado estabelecimento com base em alguns gráficos e seu respectivo escore.
+
+Devido ao imenso número de combinações de relatórios, o processo de pré-processamento dos documentos se torna inviável. Para isso foram criadas rotinas na qual o usuário indica as configurações desejadas e o algoritmo gera automaticamente o relatório desejado. Por ser uma requisição _online_ se fez necessária a utilização de funções computacionalmente interessantes para reduzir o tempo de espera do usuário. 
+
+Abaixo imagens de alguns relatórios criados a partir de pacotes do R. (Clique para ampliar)
+
+IMAGENS DOS RELATORIOS
+
+# Tecnologias
+
+Para trabalhar com os aproximadamente 2TB de dados, foram utilizadas diversas tecnologias: ferramentas gerenciais, banco de dados e de bi. Toda a parte de análise de dados e apresentação de resultados foi implementada em linguagem R. Abaixo os pacotes mais utilizados durante o projeto:
+
++ stringr: Manipulação de strings
++ dplyr: Manipulação de grandes bases de dados
++ data.table: Manipulação de grandes bases de dados
++ ggplot2: Gráficos estáticos
++ cairo: Criação dos relatórios
+
+# Minha função
+
++ Dar manutenção nos algoritmos de detecção de anomalias
++ Criação de novos métodos para detecção de anomalias
++ Manutenção no relatório de apresentação dos resultados
++ Criação de outras páginas e outros relatórios requeridos pelo projeto
+
+# Período de atuação
+
+De Junho de 2013 até Junho de 2015

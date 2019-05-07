@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Coaching on lgsilvaesilva</title>
+    <link>/tags/coaching/</link>
+    <description>Recent content in Coaching on lgsilvaesilva</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zn-Hans</language>
+    <lastBuildDate>Fri, 16 Mar 2018 20:37:00 -0300</lastBuildDate>
+    
+	<atom:link href="/tags/coaching/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Curso R</title>
+      <link>/projects/curso_r/curso_r/</link>
+      <pubDate>Fri, 16 Mar 2018 20:37:00 -0300</pubDate>
+      
+      <guid>/projects/curso_r/curso_r/</guid>
+      <description>A linguagem R vem se tornando cada vez mais popular entre grandes empresas. Esta popularidade se deve ao fato do R ser um &lt;em&gt;software&lt;/em&gt; livre aplicável em diversos contextos. Além disso, devido a sua popularidade atual está cada vez mais simples encontrar soluções para problemas práticos utilizando este &lt;em&gt;Software&lt;/em&gt;.</description>
+    </item>
+    
+  </channel>
+</rss>

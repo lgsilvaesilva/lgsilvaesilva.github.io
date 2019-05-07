@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Marketing on lgsilvaesilva</title>
+    <link>/tags/marketing/</link>
+    <description>Recent content in Marketing on lgsilvaesilva</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zn-Hans</language>
+    <lastBuildDate>Fri, 16 Mar 2018 20:38:00 -0300</lastBuildDate>
+    
+	<atom:link href="/tags/marketing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Datalive</title>
+      <link>/projects/datalive/data_live/</link>
+      <pubDate>Fri, 16 Mar 2018 20:38:00 -0300</pubDate>
+      
+      <guid>/projects/datalive/data_live/</guid>
+      <description>Entender o comportamento dos seus clientes é crucial para grandes empresas. De posse do conhecimento do comportamento de seus clientes as empresas podem fornecer produtos de forma mais assertiva e no momento mais oportuno. Visando isto a Datalive propõe a integração entre o comportamento online e offline visando obter um conhecimento mais rico a respeito dos clientes.</description>
+    </item>
+    
+  </channel>
+</rss>

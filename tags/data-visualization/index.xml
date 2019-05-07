@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Data Visualization on lgsilvaesilva</title>
+    <link>/tags/data-visualization/</link>
+    <description>Recent content in Data Visualization on lgsilvaesilva</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zn-Hans</language>
+    <lastBuildDate>Fri, 16 Mar 2018 20:36:00 -0300</lastBuildDate>
+    
+	<atom:link href="/tags/data-visualization/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Stats4Good</title>
+      <link>/projects/stats4good/stats4good/</link>
+      <pubDate>Fri, 16 Mar 2018 20:36:00 -0300</pubDate>
+      
+      <guid>/projects/stats4good/stats4good/</guid>
+      <description>The Stats4Good is a group founded in 2016 by graduate students of the Statistics Department from Universidade Federal de Minas Gerais, located in Belo Horizonte, Brazil. The group has aimed to provide statistical analysis that can help the society. The Stats4Good principles are Teaching, Learning and Discussing.</description>
+    </item>
+    
+  </channel>
+</rss>

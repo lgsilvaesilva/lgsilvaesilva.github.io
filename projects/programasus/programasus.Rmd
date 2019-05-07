@@ -1,0 +1,52 @@
+---
+date: "2018-07-14T00:14:19+08:00"
+publishdate: "2018-08-13+08:00"
+lastmod: "2018-08-13+08:00"
+title: "Programa SUS"
+author: "Luís G. Silva e Silva"
+categories: ["Projects"]
+tags: ["R", "Machine Learning", "Data Mining", "Automatic Reports", "Applied Statistics"]
+series: ["Projects"]
+img: "/projects/programasus/programasus-logo2.png"
+toc: true
+draft: false
+summary: "`Programa SUS` is a system that aimed to support the general planning of the SUS health actions and services. This planning is a process of negotiation and regional bipartite agreement between the managers of the same state (UF) or different states (UFs) (interstate). The `Programa SUS` role is to give support to the managers of the whole levels in their planning decision. For example, it provides parameters derived from historical time series and auxiliary source, ensuring the budgetary and capacity constraints."
+---
+
+```{r setup, include=FALSE}
+# knitr::opts_knit$set(base.dir = 'projects/programasus/')
+```
+
+## Description
+<div style="text-align: justify">
+
+`Programa SUS` is a system that aimed to support the general planning of the SUS health actions and services. This planning is a process of negotiation and regional bipartite agreement between the managers of the same state (UF) or different states (UFs) (interstate). The `Programa SUS` role is to give support to the managers of the whole levels in their planning decision. For example, it provides parameters derived from historical time series and auxiliary source, ensuring the budgetary and capacity constraints.
+
+## What did we do?
+
+In this project, I developed a Shiny App to visualize spatially the patients flow among cities. Also, the user can filter the medical procedures who wants to visualize. For instance, if the user selects the procedure `Heart Chirurgy` hence it is possible to identify which cities "import" more patients than "export". Please, see the figure below to be an idea of the Shiny app and its features.
+
+## Examples
+![](/projects/programasus/programasus.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

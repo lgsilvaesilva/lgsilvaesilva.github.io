@@ -6,26 +6,17 @@
     <description>Recent content in Categories on lgsilvaesilva</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zn-Hans</language>
-    <lastBuildDate>Sat, 13 Apr 2019 00:14:19 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 14 Jul 2018 00:14:19 +0800</lastBuildDate>
     
 	<atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
-      <title>Sci</title>
-      <link>/categories/sci/</link>
-      <pubDate>Sat, 13 Apr 2019 00:14:19 +0800</pubDate>
+      <title>Projects</title>
+      <link>/categories/projects/</link>
+      <pubDate>Sat, 14 Jul 2018 00:14:19 +0800</pubDate>
       
-      <guid>/categories/sci/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>test</title>
-      <link>/categories/test/</link>
-      <pubDate>Wed, 19 Aug 2015 20:29:37 -0700</pubDate>
-      
-      <guid>/categories/test/</guid>
+      <guid>/categories/projects/</guid>
       <description></description>
     </item>
     

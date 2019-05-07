@@ -1,0 +1,58 @@
+---
+date: "2018-07-14T00:14:19+08:00"
+publishdate: "2018-08-13+08:00"
+lastmod: "2018-08-13+08:00"
+title: "InfoSAS"
+author: "Luís G. Silva e Silva"
+categories: ["Projects"]
+tags: ["R", "Machine Learning", "Data Mining", "Automatic Reports", "Applied Statistics"]
+series: ["Projects"]
+img: "/projects/infosas/infosas-logo2.png"
+toc: true
+draft: false
+summary: "The InfoSAS Research Project funded by the Brazilian Ministry of Health. The aim was to develop an automatic system to carry out surveillance and monitoring of health benefits payments by the central government. The project's purpose is to detect anomalies and possible frauds in Brazil's Health System."
+---
+
+```{r setup, include=FALSE}
+# knitr::opts_knit$set(base.dir = 'projects/infosas/')
+```
+
+## InfoSAS
+
+The InfoSAS Research Project funded by the Brazilian Ministry of Health. The aim was to develop an automatic system to carry out surveillance and monitoring of health benefits payments by the central government. The project's purpose is to detect anomalies and possible frauds in Brazil's Health System. The statistical challenge is that we have literally *tens of thousands of time series of medical production*, one for each health provider and for a large set of specific medical procedures. The diversity of the time series made them not amenable to a single typical time series model such as ARIMA-type or latent structure Bayesian models
+
+## What did we do?
+
+In this project, my contribution was to help with the development and implementation of statistical techniques in time series, besides helping with the analysis and visualization of the results. The statistical models and automated reports were implemented using R programming. A practical challenge was to develop the algorithms in the way they could be trained and updated automatically.
+
+## Skills
+
++ [data.table](https://cran.r-project.org/web/packages/data.table/index.html)
++ [ggplot2](https://ggplot2.tidyverse.org/)
++ [grid and gridExtra](https://cran.r-project.org/web/packages/gridExtra/index.html)
++ Time Series Analysis
++ Data Visualization
+
+## Example
+
+![](/projects/infosas/infosas-example.png)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on lgsilvaesilva</title>
+    <link>/tags/r/</link>
+    <description>Recent content in R on lgsilvaesilva</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zn-Hans</language>
+    <lastBuildDate>Sat, 14 Jul 2018 00:14:19 +0800</lastBuildDate>
+    
+	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>InfoSAS</title>
+      <link>/projects/infosas/infosas/</link>
+      <pubDate>Sat, 14 Jul 2018 00:14:19 +0800</pubDate>
+      
+      <guid>/projects/infosas/infosas/</guid>
+      <description>The InfoSAS Research Project funded by the Brazilian Ministry of Health. The aim was to develop an automatic system to carry out surveillance and monitoring of health benefits payments by the central government. The project&amp;rsquo;s purpose is to detect anomalies and possible frauds in Brazil&amp;rsquo;s Health System.</description>
+    </item>
+    
+    <item>
+      <title>Programa SUS</title>
+      <link>/projects/programasus/programasus/</link>
+      <pubDate>Sat, 14 Jul 2018 00:14:19 +0800</pubDate>
+      
+      <guid>/projects/programasus/programasus/</guid>
+      <description>&lt;code&gt;Programa SUS&lt;/code&gt; is a system that aimed to support the general planning of the SUS health actions and services. This planning is a process of negotiation and regional bipartite agreement between the managers of the same state (UF) or different states (UFs) (interstate). The &lt;code&gt;Programa SUS&lt;/code&gt; role is to give support to the managers of the whole levels in their planning decision. For example, it provides parameters derived from historical time series and auxiliary source, ensuring the budgetary and capacity constraints.</description>
+    </item>
+    
+    <item>
+      <title>Project Arouca</title>
+      <link>/projects/arouca/arouca/</link>
+      <pubDate>Sat, 14 Jul 2018 00:14:19 +0800</pubDate>
+      
+      <guid>/projects/arouca/arouca/</guid>
+      <description>The Arouca Platform is a project that aimed at visualize the health professionals&amp;rsquo; locations and identify regions with low rate of medical assistance. The Arouca Platform is a database that aggregates information about health professionals from Brazilian National Healthcare System, known as the Unified Health System (Portuguese: Sistema Único de Saúde, SUS). In this platform are available data from professional&amp;rsquo;s historical educational. For instance, where the professional graduated and which city is working currently.</description>
+    </item>
+    
+    <item>
+      <title>Datalive</title>
+      <link>/projects/datalive/data_live/</link>
+      <pubDate>Fri, 16 Mar 2018 20:38:00 -0300</pubDate>
+      
+      <guid>/projects/datalive/data_live/</guid>
+      <description>Entender o comportamento dos seus clientes é crucial para grandes empresas. De posse do conhecimento do comportamento de seus clientes as empresas podem fornecer produtos de forma mais assertiva e no momento mais oportuno. Visando isto a Datalive propõe a integração entre o comportamento online e offline visando obter um conhecimento mais rico a respeito dos clientes.</description>
+    </item>
+    
+    <item>
+      <title>Stats4Good</title>
+      <link>/projects/stats4good/stats4good/</link>
+      <pubDate>Fri, 16 Mar 2018 20:36:00 -0300</pubDate>
+      
+      <guid>/projects/stats4good/stats4good/</guid>
+      <description>The Stats4Good is a group founded in 2016 by graduate students of the Statistics Department from Universidade Federal de Minas Gerais, located in Belo Horizonte, Brazil. The group has aimed to provide statistical analysis that can help the society. The Stats4Good principles are Teaching, Learning and Discussing.</description>
+    </item>
+    
+  </channel>
+</rss>
