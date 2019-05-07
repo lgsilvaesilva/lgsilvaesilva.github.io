@@ -39,6 +39,15 @@
     </item>
     
     <item>
+      <title>Voronoys</title>
+      <link>/projects/voronoys/voronoys/</link>
+      <pubDate>Sat, 14 Jul 2018 00:14:19 +0800</pubDate>
+      
+      <guid>/projects/voronoys/voronoys/</guid>
+      <description>VORONOYS is a team composed by four statisticians and a political scientist. It begins motivated by the first CEPESP Data challenge, in which the main objective was to show new perspectives on the Brazilian elections. The name is based on the mathematical technique used in this work called Voronoi tessellation.</description>
+    </item>
+    
+    <item>
       <title>Datalive</title>
       <link>/projects/datalive/data_live/</link>
       <pubDate>Fri, 16 Mar 2018 20:38:00 -0300</pubDate>

@@ -15,6 +15,12 @@
   </url>
   
   <url>
+    <loc>/tags/big-data/</loc>
+    <lastmod>2018-07-14T00:14:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/categories/</loc>
     <lastmod>2018-07-14T00:14:19+08:00</lastmod>
     <priority>0</priority>
@@ -22,6 +28,12 @@
   
   <url>
     <loc>/tags/data-mining/</loc>
+    <lastmod>2018-07-14T00:14:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/data-visualization/</loc>
     <lastmod>2018-07-14T00:14:19+08:00</lastmod>
     <priority>0</priority>
   </url>
@@ -77,6 +89,12 @@
   </url>
   
   <url>
+    <loc>/tags/shiny-dashboard/</loc>
+    <lastmod>2018-07-14T00:14:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/spatial/</loc>
     <lastmod>2018-07-14T00:14:19+08:00</lastmod>
     <priority>0</priority>
@@ -86,6 +104,17 @@
     <loc>/tags/</loc>
     <lastmod>2018-07-14T00:14:19+08:00</lastmod>
     <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/voronoi-tesselation/</loc>
+    <lastmod>2018-07-14T00:14:19+08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/projects/voronoys/voronoys/</loc>
+    <lastmod>2018-07-14T00:14:19+08:00</lastmod>
   </url>
   
   <url>
@@ -119,12 +148,6 @@
   <url>
     <loc>/tags/r-basics/</loc>
     <lastmod>2018-03-16T20:37:00-03:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/data-visualization/</loc>
-    <lastmod>2018-03-16T20:36:00-03:00</lastmod>
     <priority>0</priority>
   </url>
   
